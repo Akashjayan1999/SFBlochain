@@ -1,5 +1,4 @@
 const Block = require('./block');
-const { DIFFICULTY } = require('../config');
 
 describe('Block', () => {
     let data,lastBlock,block;
@@ -19,7 +18,15 @@ describe('Block', () => {
     });
 
     it('generates a hash that matches the difficulty', () => {
-        expect(block.hash.substring(0, DIFFICULTY)).toEqual('0'.repeat(DIFFICULTY));
-        console.log(block.toString());
+        expect(block.hash.substring(0, block.difficulty)).toEqual('0'.repeat(block.difficulty));
+        // console.log(block.toString());
+    });
+
+    it('lower the difficulty for slow mining', () => {
+        expect(Block.adjustDifficulty(lastBlock, lastBlock.timestamp + 3600000)).toBe(lastBlock.difficulty - 1);
+    });
+
+    it('raises the difficulty for quickly mining blocks', () => {
+        expect(Block.adjustDifficulty(lastBlock, lastBlock.timestamp + 1)).toBe(lastBlock.difficulty + 1);
     });
 }); 

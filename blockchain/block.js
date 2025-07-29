@@ -29,7 +29,7 @@ class Block {
     static mineBlock(lastBlock,data){
         let hash,timestamp;
         const lastHash = lastBlock.hash;
-        const {difficulty} = lastBlock;
+        let {difficulty} = lastBlock;
         let nonce =0;
         do{
             
@@ -51,12 +51,12 @@ class Block {
 
     static blockHash(block){
         const { timestamp, lastHash, data, nonce, difficulty } = block;
-        return Block.hash(timestamp,lastHash,data,nonce);
+        return Block.hash(timestamp,lastHash,data,nonce,difficulty);
     }
 
     static adjustDifficulty(lastBlock,timestamp){
-        const { difficulty } = lastBlock;
-       difficulty = lastBlock.timestamp + MINE_RATE > timestamp ? difficulty + 1 : difficulty - 1;
+        let { difficulty } = lastBlock;
+        difficulty = lastBlock.timestamp + MINE_RATE > timestamp ? difficulty + 1 : difficulty - 1;
         return difficulty < 1 ? 1 : difficulty; // Ensure difficulty does not go below 1
     }
 

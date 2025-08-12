@@ -41,12 +41,16 @@ class P2pServer{
     messageHandler(socket){
         socket.on('message',message=>{
             const data = JSON.parse(message);
-            if(data.types=== MESSAGE_TYPES.chain){
-                this.blockchain.replaceChain(data.chain);
-                console.log('Received chain from peer');
-
-            }else{
-
+            switch(data.type){
+                case MESSAGE_TYPES.chain:
+                    this.blockchain.replaceChain(data.chain);
+                    console.log('Received chain from peer');
+                    break;
+                case MESSAGE_TYPES.transaction:
+                    this.transactionPool.updateOrAddTransaction(data.transaction);
+                    break;
+                default:
+                    console.log('Unknown message type');
             }
             // console.log('data',data)
 

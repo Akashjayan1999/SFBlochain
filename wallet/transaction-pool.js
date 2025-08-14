@@ -1,4 +1,6 @@
+const Transaction = require('./transaction');
 class TransactionPool {
+    
     constructor() {
         this.transactions = [];
     }
@@ -16,7 +18,23 @@ class TransactionPool {
 
 
    existingTransaction(address) {
-        return this.transactions.find(t => t.input.address === address);
+        return this.transactions.find(t=>t.input.address === address);
+    }
+
+    validTransactions() {
+        return this.transactions.filter(transaction=>{
+            const outputTotal = transaction.outputs.reduce((total, output) => total + output.amount, 0);
+            if(transaction.input.amount !== outputTotal){
+                console.log(`invalid transaction from the ${transaction.input.address} address`);
+                return;
+            }
+
+            if(!Transaction.verifyTransaction(transaction)){
+                console.log(`invalid signature from the ${transaction.input.address} address`);
+                return;
+            }
+            return transaction;
+        });
     }
 }
 

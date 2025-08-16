@@ -75,4 +75,8 @@ describe('Transaction', () => {
             expect(Transaction.verifyTransaction(transaction)).toBe(true);
         });
     });
+
+    describe('creating a reward transaction', () => {
+    });
+
 });

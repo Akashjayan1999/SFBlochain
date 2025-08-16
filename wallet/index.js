@@ -36,6 +36,14 @@ class Wallet{
         transactionPool.updateOrAddTransaction(transaction);
         return transaction;
     }
+
+    static blockchainWallet(){
+        const blockchainWallet = new this();
+        blockchainWallet.address = 'blockchain-wallet';
+        return blockchainWallet;
+
+
+    }
        
 }
 

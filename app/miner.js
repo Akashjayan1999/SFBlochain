@@ -12,7 +12,9 @@ class Miner{
 
     mine() {
        const validTransactions = this.transactionPool.validTransactions(); 
+       console.log(`Valid transactions: ${validTransactions.toString()}`);
        validTransactions.push(Transaction.rewardTransaction(this.wallet, Wallet.blockchainWallet()));
+       console.log(`Reward transaction: ${validTransactions[validTransactions.length - 1].toString()}`);
        const block = this.blockchain.addBlock(validTransactions);
        this.p2pServer.syncChains();
        this.transactionPool.clear();

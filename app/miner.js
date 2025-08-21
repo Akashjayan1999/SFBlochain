@@ -1,5 +1,6 @@
-import Transaction from "../wallet/transaction-pool";
-import Wallet from "../wallet/index";
+
+const Transaction = require('../wallet/transaction');
+const Wallet = require('../wallet/index');
 class Miner{
     constructor(blockchain, transactionPool, wallet, p2pServer) {
         this.blockchain = blockchain;

@@ -44,6 +44,37 @@ class Wallet{
 
 
     }
+
+    calculateBalance(blockchain) {
+        let balance  = this.balance;
+        let transactions =[];
+        blockchain.chan.forEach(block=> block.data.forEach(transactions=>{
+            transactions.push(transaction);
+        }));
+      
+        const walletInputTs = transactions.filter(transaction=>transaction.input.address === this.publicKey);
+        let starttime =0;
+        if(!walletInputTs.length) {
+        const recentInputT = walletInputs.reduce((prev, current)=>
+            prev.input.timestamp > current.input.timestamp ? prev : current)
+
+         balance = recentInput.outputs.find(output => output.address === this.publicKey).amount;
+         startTime = recentInput.input.timestamp;
+       }
+       
+       transactions.forEach(transaction=>{
+         if(transaction.input.timestamp > startTime){
+            transaction.outputs.find(output=>{
+                if(output.address === this.publicKey){
+                    balance += output.amount;
+                }
+            });
+         }
+       });
+       return balance;
+      
+
+    }
        
 }
 
